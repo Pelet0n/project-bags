@@ -1,0 +1,18 @@
+.tableContainer{
+    width: 900px;
+    height: 900px;
+    margin-top:20%;
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+} 
+
+table,tr,td{
+    text-align: center;
+    padding: 8px;
+}
+
+table{
+    width: 100%;
+}

@@ -1,0 +1,39 @@
+body{
+  background-color: #BBC8D1;
+}
+
+.container{
+    display: flex;
+    justify-content: start;
+   
+}
+
+.leftCont{
+  height: 100%;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  width: 15%;
+  background-color:#405464
+}
+
+.content{
+  font-size: 20px;
+  padding: 6px;
+  margin: 10px;
+  height: 200px;
+  justify-content: center;
+
+  display: flex;
+  
+}
+
+p{
+  height: 50px;
+  font-size: 20px;
+}
+
+a{
+  color:white;
+  text-decoration: none;
+}
