@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import {BrowserRouter, Routes,Route} from 'react-router-dom'
 import './App.css';
-import Dashboard from './components/Dashboard';
-import Admin from './components/Admin';
-import { File } from './components/Files';
+import Dashboard from './components/Dashboard/Dashboard';
+import Admin from './components/Admin/Admin';
+import { File } from './components/Files/Files';
 import { Error } from './components/Error';
-import { getToken } from './helpers/storage';
-import { Download } from './components/Download';
-import { Summary } from './components/Summary';
+import { Download } from './components/Download/Download';
+import { Summary } from './components/Summary/Summary';
+import { Createform } from './components/CreateForm/Createform';
 import axios from 'axios';
 
 function App() {
@@ -34,6 +34,7 @@ function App() {
         <Route path='admin' element={<Admin />}>
             <Route path='dashboard' element={<Summary teams={teams}/>}/>
             <Route path='files' element={<Download />}/>
+            <Route path='create' element={<Createform />}/>
         </Route>
         <Route path='send' element={<File />} />
         <Route path='*' element={<Error />} />

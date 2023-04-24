@@ -6,9 +6,17 @@ export function Download(){
     const [data, setData] = useState(null)
 
     const fetchFiles = async ()=>{
-        const response = await axios.get("http://localhost:4000/download")
-        if(response?.data?.length){
-            setData(response.data)
+        try{
+            const response = await axios.get("http://localhost:4000/download",{
+            })
+            
+            if(response?.data.length > 0){
+                setData(response.data)
+            }
+           
+        }
+        catch(e){
+            console.log(e)
         }
         
     }

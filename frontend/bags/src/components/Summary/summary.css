@@ -1,0 +1,27 @@
+.modalContainer{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    flex-direction: column;
+    max-height: 800px;
+    width: 450px;
+    border-radius:10px;
+    background-color: #6d7776;
+    -webkit-box-shadow: 1px 1px 27px 0px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 1px 1px 27px 0px rgba(66, 68, 90, 1);
+    box-shadow: 1px 1px 27px 0px rgba(66, 68, 90, 1);
+}
+
+.form{
+    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
+    display:flex;
+    margin:10px;
+    padding:5px;
+    width:100%;
+}

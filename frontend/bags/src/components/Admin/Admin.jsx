@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react"
-import Form from './Form'
+import { useState } from "react"
+import Form from '../Form/Form'
 import axios from "axios"
-import {getToken, removeToken, setToken} from "../helpers/storage"
-import {File} from './Files'
+import {getToken, removeToken, setToken} from "../../helpers/storage"
 import {Fab} from '@mui/material'
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import DriveFileMoveIcon from '@mui/icons-material/DriveFileMove';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import {Link, Navigate, Outlet, useNavigate} from 'react-router-dom'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Outlet, useNavigate} from 'react-router-dom'
 import "./admin.css"
-import { Snack } from "./Snack"
+import { Snack } from "../Snack"
 
 const defaults = {
     login: "",
@@ -62,25 +62,28 @@ export default function Admin(){
             <div className="container">
                 <div className="leftCont">
                     <div className="header" style={{backgroundColor:"#2B3C48"}}>
-                        <h1>Mój zapis</h1>
+                        <h1 style={{letterSpacing:7,color:"white"}}>BAGS</h1>
                     </div>
                     <div className="content">
                         <a href="/admin/files">
-                            <DriveFileMoveIcon />Files
+                            <DriveFileMoveIcon /><p>Files</p>
                         </a>
                     </div>
                     <div className="content">
                         <a href="/admin/dashboard">
-                            <DashboardIcon />Dashboard
+                            <DashboardIcon sx={{width:50}}/><p>Dashboard</p>
                         </a>
                     </div>
 
                     
                     <div className="content">
-                        <a href="/admin/dashboard"><p>New users</p></a>
+                        <a href="/admin/create">
+                            <AccountCircleIcon />
+                            <p>New Users</p>
+                        </a>
                     </div>
                    
-                    <div className="content">
+                    <div className="content" style={{height:150}}>
                         <Fab onClick={handleLogout}>
                             <PowerSettingsNewIcon />
                         </Fab>

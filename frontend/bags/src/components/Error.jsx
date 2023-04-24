@@ -1,7 +1,7 @@
 export function Error(){
     return(
         <>
-            <p>Ooops we didnt find this site</p>
+            <h1>Ooops this site do not exists</h1>
         </>
     )
 }

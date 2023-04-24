@@ -1,11 +1,13 @@
 import { Fab, Modal,Fade,ButtonGroup,Button,FormControl } from "@mui/material"
 import AddIcon from '@mui/icons-material/Add';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './summary.css'
 import EditIcon from '@mui/icons-material/Edit';
-import { Snack } from "./Snack";
-import  Dashboard  from "./Dashboard";
+import { Snack } from "../Snack";
+import  Dashboard  from "../Dashboard/Dashboard";
+import { Loader } from "../Loader/Loader";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export function Summary({teams}){
     const [open,setOpen] = useState({
@@ -19,7 +21,9 @@ export function Summary({teams}){
     const [error,setError] = useState(null)
 
 
+
     const updateForm = (e)=>{
+        
         return setForm(v=>({
             ...v,
             [e.target.name]: +e.target.value
@@ -29,6 +33,7 @@ export function Summary({teams}){
     const handleUpdate = async ()=>{
         let error = ""
 
+        console.log(form)
 
         if(Object.keys(form).length < 1){
             error = "Zaktualizuj conajmniej jedną drużynę"
@@ -38,9 +43,9 @@ export function Summary({teams}){
         if(Object.values(form).some(v=>v<0)){
             error = "Wynik nie może być minusowy"
         }
-        
+
         if(error === ""){
-            console.log("eoeoe")
+
             try{
                 const response = await axios({
                     method:"post",
@@ -48,6 +53,9 @@ export function Summary({teams}){
                     data:{
                         points: form,
                         question: question
+                    }, 
+                    headers: {
+                        "Authorization": `bearer ${localStorage.getItem('token')}`
                     }
                 })
             }
@@ -70,15 +78,15 @@ export function Summary({teams}){
     return(
         <>
             <div className="summContainer" style={{display:"flex",border:"1px solid black",width:"85%",justifyContent:"center"}}>
-                
-                <Fab variant="success"  aria-label="add" onClick={()=>setOpen(v =>({
+            <Dashboard />
+                <Fab variant="success"  sx={{position:"absolute",top:150}} aria-label="add" onClick={()=>setOpen(v =>({
                     ...v,
                     modal:true
                 }))}>
                     <AddIcon />
                 </Fab>
             </div>
-            <Dashboard />
+            
             <Modal open={open.modal} onClose={()=>setOpen(v => ({
                 ...v,
                 modal:false
@@ -88,13 +96,14 @@ export function Summary({teams}){
                         <h2>Edytowanie dla zadania {question[1]}</h2>
                         <FormControl sx={{margin:5}}>
                             {teams ? teams.map(team=>(
-                                <React.Fragment key={team.name}>
+                                <div className="form" key={team.name}>
                                     <p>{team.name}</p>
-                                    <input id="my-input" name={team.name} type="number" onChange={updateForm} style={{width:40}}/>
-                                </React.Fragment>
+                                    
+                                    <input id="my-input" name={team.name} type="number" onChange={updateForm} style={{width:70,height:20}}/>
+                                </div>
                             )) : (
-                                <p>Błąd w połączeniu z serwerem</p>
-                            )}
+                                <Loader />
+                            )} 
                         </FormControl>
                         <Fab sx={{marginBottom:4}} onClick={handleUpdate}>
                             <EditIcon />

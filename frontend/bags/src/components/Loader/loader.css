@@ -1,0 +1,23 @@
+@keyframes spin {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+.circle{
+    width: 80px;
+    height: 80px;
+    border: 5px solid black;
+    border-radius: 50%;
+    position: absolute;
+    border-top-color: #2AB88B;
+    animation: spin 1.5s linear infinite;
+    z-index: 999;
+}
+
+.border{
+    height: 100%;
+
+}

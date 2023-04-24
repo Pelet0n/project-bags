@@ -3,9 +3,9 @@ import './dashboard.css';
 import {Fab} from '@mui/material'
 import {AddAlert} from '@mui/icons-material'
 import axios from 'axios'
-import Tabela from './Table';
-import { removeToken, setToken } from '../helpers/storage';
-
+import Tabela from '../Table/Table';
+import { removeToken, setToken } from '../../helpers/storage';
+import { Loader } from '../Loader/Loader';
 
 function Dashboard() {
   const [teams,setTeams] = useState({
@@ -40,7 +40,7 @@ function Dashboard() {
   return (
     <div className='containerDash'>
       {teams.isLoading ? (
-        <>Loading table...</>
+        <Loader />
       ) : (
         <Tabela values={teams.data}></Tabela>
       )}

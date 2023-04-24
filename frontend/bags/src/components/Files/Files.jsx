@@ -20,24 +20,22 @@ export function File(){
                 headers: { "Content-Type": "multipart/form-data" }
             })
             
-            if(response.ok){
+            console.log(response.statusText)
+
+            if(response.statusText==="OK"){
                 setDisable(true)
                 localStorage.setItem('send',true)
-                console.log(disable)
+
                 
             }
         }
         catch(e){
-            console.log(e)
+            console.error(e)
         }
         
        
 
     }
-
-    
-
-    localStorage.removeItem('send')
 
     return(
         <>
@@ -46,11 +44,9 @@ export function File(){
             <h1>Tutaj możesz wysłać swój plik</h1>
                 <FormControl sx={{width:"75%"}}>
                     <Input type='file' accept=".zip,.rar,.7zip" onChange={(e)=>setFile(e.target.files[0])}/>
-                    <Button variant="outlined" onClick={handleSend}  disabled={disable}>Wyślij plik</Button>
+                    <Button variant="outlined" onClick={handleSend} disabled={!file || disable}>Wyślij plik</Button>
                 </FormControl>
-                {/* Wpisz swoją nazwę<input type="text" onChange={e => setName(e.target.value)}/><br />
-                <input type="file" accept=".zip,.rar,.7zip" onChange={(e)=>setFile(e.target.files[0])}  />
-                <input type="button" disabled={!file} value="Wyślij plik" onClick={handleSend} /> */}
+                <p>Pamiętaj plik możesz wysłać tylko raz!</p>
             </div>
         </>
     )

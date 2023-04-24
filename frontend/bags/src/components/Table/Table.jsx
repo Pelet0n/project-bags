@@ -31,9 +31,9 @@ export default function Tabela({values}){
             </table> */}
 
             <TableContainer >
-                <Table stickyHeader={true} sx={{padding:10,maxWidth:"100%",height:500}}>
+                <Table stickyHeader={true} sx={{padding:10,maxWidth:"100%",height:500,'td,th':{fontSize:16}}}>
                     <TableHead>
-                        <TableRow  selected={true} sx={{borderBottom:1}}>
+                        <TableRow  selected={true} sx={{'td,th':{fontWeight:800}}}>
                             <TableCell  align='justify'>Nazwa</TableCell>
                             <TableCell align='justify'>Q1</TableCell>
                             <TableCell align='justify'>Q2</TableCell>
@@ -44,7 +44,7 @@ export default function Tabela({values}){
                     </TableHead>
                     <TableBody>
                         {values?.map((v)=>(
-                            <TableRow key={v._id} sx={{'td,th':{borderBottom:1},'&:nth-of-type td': {backgroundColor:'red'}}}>
+                            <TableRow key={v._id} sx={{'td,th':{borderBottom:1}}}>
                                 <TableCell component='th' align='justify'>{v.name}</TableCell>
                                 <TableCell align='justify'>{v.q1}</TableCell>
                                 <TableCell align='justify'>{v.q2}</TableCell>

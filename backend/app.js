@@ -35,6 +35,14 @@ app.use(express.json())
 
 connectMongo()
 
+async function setSum(){
+    const teams = await Team.find({})
+    for(const team of teams){
+        const sum = team.q1 + team.q2 + team.q3 + team.q4
+        await Team.findOneAndUpdate({'name':team.name},{sum:sum})
+    }
+}
+
 app.post("/populate",isAuth,async (req,res)=>{
 
     const teams = await Team.create(req.body).catch(e=>console.log(e))
@@ -50,7 +58,6 @@ app.post("/populate",isAuth,async (req,res)=>{
 
 app.get("/teams",async(req,res)=>{
     const teams = await Team.find({})
-    console.log(teams)
     return res.json(teams)
 })
 
@@ -65,20 +72,19 @@ app.get('/team',async(req,res)=>{
 })
 
 
-app.post('/update',async(req,res)=>{
-    const points = req.body.points
-    const question = req.body.question
+app.post('/update',isAuth,async(req,res)=>{
+    const {points,question} = req.body
 
     for(const [v,k] of Object.entries(points)){
         try{
             const update = await Team.findOneAndUpdate({name:v},{[question]: k})
-            console.log(v,k,question)
-            
         }
         catch(e){
             console.error(e)
         }
     }
+
+    setSum()
 
     return res.json("OK")
 
@@ -120,9 +126,9 @@ app.post('/login',async(req,res)=>{
 
 app.post('/createuser',isAuth,async(req,res)=>{
     const {login, password} = req.body
-
+    console.log(login)
     if(await Admin.findOne({login:login})){
-        return res.json("User with that login was already registered")
+        return res.json({"error":"Użytkownik z tym loginem już istnieje w bazie"})
     }
 
     try{
@@ -135,23 +141,21 @@ app.post('/createuser',isAuth,async(req,res)=>{
     
         await admin.save()
 
-        res.json({"message": "User created succesfully"})
+        res.json({"message": "Użytkownik stworzony pomyślnie"})
     }
     catch(err){
-        res.json("Failed to create user")
+        res.json({"error":"Błąd w utworzeniu użytkownika"})
     }
 
 })
 
 app.post('/testpost',upload.single('file'),(req,res)=>{
-    console.log("ujdhasiod")
     return res.json("udało się przesłać plik")
 }) 
 
 app.get('/download',(req,res)=>{
 
     if(!req.query.filename){
-        console.log(fs.readdirSync('public/files'))
         return res.json(fs.readdirSync('public/files'))
     }
 
